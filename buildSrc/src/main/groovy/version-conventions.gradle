@@ -2,7 +2,7 @@ plugins {
     id("pl.allegro.tech.build.axion-release")
     id("com.diffplug.spotless-changelog")
 }
-/*
+
 
 scmVersion {
     ignoreUncommittedChanges = false
@@ -40,4 +40,4 @@ tasks.withType(Jar){
     manifest {
         attributes 'Scm-Info': scmVersion.versionProvider().map({it.position}).get()
     }
-}*/
+}
