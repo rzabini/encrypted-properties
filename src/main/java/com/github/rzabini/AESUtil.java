@@ -43,7 +43,7 @@ final class AESUtil {
         cipher.init(Cipher.ENCRYPT_MODE, key, generateIv(iv));
         final byte[] ciphertext = cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8));
         // Prepend IV to the ciphertext (or handle it as needed)
-        byte[] combined = new byte[iv.length + ciphertext.length];
+        final byte[] combined = new byte[iv.length + ciphertext.length];
         System.arraycopy(iv, 0, combined, 0, iv.length);
         System.arraycopy(ciphertext, 0, combined, iv.length, ciphertext.length);
         return Base64.getEncoder().encodeToString(combined);
@@ -56,11 +56,11 @@ final class AESUtil {
     private static String decryptPasswordBased(final byte[] combined, final SecretKey key)
             throws GeneralSecurityException {
         // Extract the IV
-        byte[] iv = new byte[16];
+        final byte[] iv = new byte[16];
         System.arraycopy(combined, 0, iv, 0, iv.length);
 
         // Extract the ciphertext
-        byte[] ciphertext = new byte[combined.length - iv.length];
+        final byte[] ciphertext = new byte[combined.length - iv.length];
         System.arraycopy(combined, iv.length, ciphertext, 0, ciphertext.length);
 
         final Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
@@ -69,7 +69,7 @@ final class AESUtil {
     }
     static String decryptPasswordBased(final String masterPassword, final String encryptedData)
             throws GeneralSecurityException {
-        byte[] combined = Base64.getDecoder().decode(encryptedData);
+        final byte[] combined = Base64.getDecoder().decode(encryptedData);
         return decryptPasswordBased(combined, getKeyFromPassword(masterPassword, SALT));
     }
 }

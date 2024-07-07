@@ -52,13 +52,13 @@ class EncryptedPropertiesSpecification extends Specification {
         initializeEncryptedPropertiesFile(inputFile)
 
         when:
-        Properties encryptedProperties = EncryptedProperties.create("wrong", inputFile)
+        EncryptedProperties.create("wrong", inputFile)
 
         then:
         thrown(IllegalStateException)
     }
 
-    private initializeEncryptedPropertiesFile(Path inputFile) {
+    private static initializeEncryptedPropertiesFile(Path inputFile) {
         inputFile.toFile().text =
                 '''
         username=myusername
