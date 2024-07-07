@@ -1,0 +1,72 @@
+nexusPublishing {
+    repositories {
+        sonatype {
+            stagingProfileId = findProperty('sonatypeStagingProfileId')
+            username = findProperty('ossrhUsername')
+            password = findProperty('ossrhPassword')
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar) {
+    archiveClassifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.java
+
+                artifact sourcesJar
+                artifact javadocJar
+
+                pom {
+                    name = 'Encrypted properties'
+                    description = 'Utility library to encrypt/decrypt passwords in property files.'
+                    url = 'https://github.com/rzabini/encrypted-properties'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'rzabini'
+                            name = 'Romano Zabini'
+                            email = 'romano.zabini@gmail.com'
+                        }
+                    }
+
+                    scm {
+                        connection = 'scm:git:github.com/rzabini/encrypted-properties.git'
+                        developerConnection = 'scm:git:ssh://github.com/rzabini/encrypted-properties.git'
+                        url = 'https://github.com/rzabini/encrypted-properties/tree/master'
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+            findProperty("signing.keyId") ?: System.getenv("GPG_PRIVATE_KEYID"),
+            findProperty("signing.key") ?: System.getenv("GPG_PRIVATE_KEY"),
+            findProperty("signing.password") ?: System.getenv("GPG_PRIVATE_KEY_PASSWORD"))
+
+    required { !version.endsWith("SNAPSHOT") }
+    sign publishing.publications
+}
+
