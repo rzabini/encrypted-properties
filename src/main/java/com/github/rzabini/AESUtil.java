@@ -27,10 +27,6 @@ final class AESUtil {
         return new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
     }
 
-    private static IvParameterSpec generateIv() {
-        return generateIv(randomBytes());
-    }
-
     private static byte[] randomBytes() {
         final byte[] iv = new byte[16];
         SECURE_RANDOM.nextBytes(iv);
@@ -62,7 +58,6 @@ final class AESUtil {
         // Extract the IV
         byte[] iv = new byte[16];
         System.arraycopy(combined, 0, iv, 0, iv.length);
-        IvParameterSpec ivSpec = new IvParameterSpec(iv);
 
         // Extract the ciphertext
         byte[] ciphertext = new byte[combined.length - iv.length];

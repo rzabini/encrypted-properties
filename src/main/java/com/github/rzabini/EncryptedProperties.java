@@ -11,7 +11,8 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- *
+ * Encrypts with a master password the password entries contained in a properties file at the first access to the file.
+ * On successive accesses reads the properties file and decrypts password entries.
  */
 public final class EncryptedProperties {
 
