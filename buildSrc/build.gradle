@@ -1,0 +1,12 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "pl.allegro.tech.build:axion-release-plugin:1.14.5"
+    implementation "com.diffplug.spotless-changelog:spotless-changelog-plugin-gradle:2.4.1"
+}

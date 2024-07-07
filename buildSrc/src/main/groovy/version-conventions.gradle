@@ -1,0 +1,43 @@
+plugins {
+    id("pl.allegro.tech.build.axion-release")
+    id("com.diffplug.spotless-changelog")
+}
+/*
+
+scmVersion {
+    ignoreUncommittedChanges = false
+    localOnly = true
+
+    tag {
+        prefix = project.name
+    }
+    hooks {
+        pre { context ->
+            assert spotlessChangelog.versionNext == spotlessChangelog.versionLast: "changelog has unreleased changes"
+        }
+    }
+
+    versionIncrementer { context ->
+        def newVersion = context.currentVersion.valueOf(spotlessChangelog.versionNext)
+        assert newVersion.greaterThan(context.currentVersion) : 'no info in changelog to calculate next version'
+        return newVersion
+    }
+
+    versionCreator { version, position ->
+        version + (position.isClean?'':'-uncommitted')
+    }
+}
+
+// defer version calculation so it is not triggered on other modules
+project.version = project.provider {scmVersion.version}
+
+// calculate version when needed
+tasks.withType(AbstractArchiveTask){
+    archiveVersion.set(project.version)
+}
+
+tasks.withType(Jar){
+    manifest {
+        attributes 'Scm-Info': scmVersion.versionProvider().map({it.position}).get()
+    }
+}*/

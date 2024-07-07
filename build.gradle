@@ -1,11 +1,22 @@
+buildscript{
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
 plugins {
-    id 'java'
     id 'groovy'
+    id 'java-library'
+    id "jacoco"
+    id "ru.vyarus.quality" version "5.0.0"
     id 'maven-publish'
+    id 'signing'
+    id 'version-conventions'
+    id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 }
 
 group 'com.github.rzabini'
-version '1.0.0'
+version scmVersion.version
 
 repositories {
     mavenCentral()
@@ -17,6 +28,7 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
 }
 
 test {
