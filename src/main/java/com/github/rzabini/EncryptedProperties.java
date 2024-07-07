@@ -23,11 +23,6 @@ public final class EncryptedProperties {
 
     }
 
-    public static Properties create(final String masterPassword, final String propertyFile)
-            throws IOException {
-        return encryptDecrypt(Paths.get(propertyFile), masterPassword);
-    }
-
     public static Properties create(final String masterPassword, final Path propertyFile)
             throws IOException {
         return encryptDecrypt(propertyFile, masterPassword);
