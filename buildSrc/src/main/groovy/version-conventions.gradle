@@ -9,7 +9,7 @@ scmVersion {
     localOnly = true
 
     tag {
-        prefix = project.name
+        prefix = 'v'
     }
     hooks {
         pre { context ->
