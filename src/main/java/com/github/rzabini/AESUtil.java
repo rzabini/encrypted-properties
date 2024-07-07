@@ -33,7 +33,7 @@ final class AESUtil {
         return iv;
     }
 
-    private static IvParameterSpec generateIv(byte[] iv) {
+    private static IvParameterSpec generateIv(final byte[] iv) {
         return new IvParameterSpec(iv);
     }
 
